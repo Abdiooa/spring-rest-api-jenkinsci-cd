@@ -13,6 +13,14 @@ pipeline {
     }
 
     stages {
+        stage('Building our image') {
+            steps {
+                script {
+                    dockerImage = docker.build  + "abdiaoo/spring-rest-api-jenkins:$BUILD_NUMBER"
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 script {
