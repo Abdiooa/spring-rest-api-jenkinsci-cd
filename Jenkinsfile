@@ -1,7 +1,7 @@
 pipeline {
     agent {
         node {
-            label 'pipelineforspring-rest-api'
+            label 'pipelineforspring-rest-api-agent'
         }
     }
     triggers {
