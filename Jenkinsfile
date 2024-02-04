@@ -1,7 +1,7 @@
 pipeline {
     agent {
         node {
-            label 'forspring-rest-api-agent'
+            label 'docker-agent-python'
         }
     }
     triggers {
