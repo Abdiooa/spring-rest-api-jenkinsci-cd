@@ -32,6 +32,7 @@ pipeline {
             agent any
             steps {
                 script {
+                    sh 'python3 --version'
                     sh 'docker --version'
                 }
             }
