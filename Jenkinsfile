@@ -8,7 +8,6 @@ pipeline {
         pollSCM 'H/2 * * * *'
     }
     tools {
-        jdk 'java-17'
         maven 'jenkins-maven'
     }
 
