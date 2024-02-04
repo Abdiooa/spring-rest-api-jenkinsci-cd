@@ -10,50 +10,55 @@ pipeline {
     tools {
         jdk 'java-17'
         maven 'jenkins-maven'
-        dockerTool 'docker-latest'
+    }
+
+    environment {
+        DOCKER_IMAGE = 'abdiaoo/spring-rest-api-jenkins:latest'
     }
 
     stages {
-        // stage('Build') {
-        //     steps {
-        //         script {
-        //             sh 'mvn -B -DskipTests clean package'
-        //         }
-        //     }
-        // }
+        stage('Build') {
+            steps {
+                script {
+                    sh 'mvn -B -DskipTests clean package'
+                }
+            }
+        }
 
-        // stage("Test") {
-        //     steps {
-        //         script {
-        //             sh 'mvn -B test'
-        //         }
-        //     }
-        // }
+        stage("Test") {
+            steps {
+                script {
+                    sh 'mvn -B test'
+                }
+            }
+        }
+
         stage('Check Docker') {
-            agent any
             steps {
                 script {
-                    sh 'docker --version'
+                    // Assuming Dockerfile is present in the project root
+                    dockerImage = docker.build("${DOCKER_IMAGE}", "--file Dockerfile .")
                 }
             }
         }
-        stage('Build Image') {
+
+        stage('Push to DockerHub') {
             steps {
                 script {
-                    sh 'docker build -t abdiaoo/spring-rest-api-jenkins:latest .'
+                    withDockerRegistry([credentialsId: "dockerhubaccount", url: ""]) {
+                        dockerImage.push()
+                    }
                 }
             }
         }
-        // stage('Push to DockerHub') {
-        //     steps {
-        //         script {
-        //             withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_CREDENTIALS', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-        //                 sh "docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD"
-        //                 sh "docker tag abdiaoo/spring-rest-api-jenkins:latest $DOCKER_IMAGE_NAME:latest"
-        //                 sh "docker push $DOCKER_IMAGE_NAME:latest"
-        //             }
-        //         }
-        //     }
-        // }
+    }
+
+    post {
+        success {
+            echo 'Pipeline succeeded! You can add additional steps or notifications here.'
+        }
+        failure {
+            echo 'Pipeline failed! You can add additional steps or notifications here.'
+        }
     }
 }
