@@ -37,13 +37,13 @@ pipeline {
                 }
             }
         }
-        // stage('Build Image') {
-        //     steps {
-        //         script {
-        //             sh 'docker build -t abdiaoo/spring-rest-api-jenkins:latest .'
-        //         }
-        //     }
-        // }
+        stage('Build Image') {
+            steps {
+                script {
+                    sh 'docker build -t abdiaoo/spring-rest-api-jenkins:latest .'
+                }
+            }
+        }
         // stage('Push to DockerHub') {
         //     steps {
         //         script {
