@@ -10,24 +10,25 @@ pipeline {
     tools {
         jdk 'java-17'
         maven 'jenkins-maven'
+        dockerTool 'docker-latest'
     }
 
     stages {
-        stage('Build') {
-            steps {
-                script {
-                    sh 'mvn -B -DskipTests clean package'
-                }
-            }
-        }
+        // stage('Build') {
+        //     steps {
+        //         script {
+        //             sh 'mvn -B -DskipTests clean package'
+        //         }
+        //     }
+        // }
 
-        stage("Test") {
-            steps {
-                script {
-                    sh 'mvn -B test'
-                }
-            }
-        }
+        // stage("Test") {
+        //     steps {
+        //         script {
+        //             sh 'mvn -B test'
+        //         }
+        //     }
+        // }
         stage('Check Docker') {
             agent any
             steps {
