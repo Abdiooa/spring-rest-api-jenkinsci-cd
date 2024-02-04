@@ -28,5 +28,13 @@ pipeline {
                 }
             }
         }
+
+        stage('Build Image') {
+            steps {
+                script {
+                    dockerImage = docker.build("abdiaoo/spring-rest-api-jenkins:latest")
+                }
+            }
+        }
     }
 }
