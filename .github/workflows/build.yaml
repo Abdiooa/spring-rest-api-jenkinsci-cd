@@ -46,7 +46,7 @@ jobs:
         run: docker images
 
       - name: Login to Docker Hub
-        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+        run: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
 
       - name: Push image to Docker Hub
         run: docker push abdiaoo/spring-boot-rest-api-jenkins:latest
