@@ -33,11 +33,6 @@ jobs:
       - name: Build app
         run: mvn -f pom.xml --batch-mode --update-snapshots clean install -DskipTests
 
-      - name: Sleep for 60 seconds
-        uses: jakejarvis/wait-action@v1
-        with:
-          time: '60s'
-
       - name: Run JUnit Tests
         run: mvn -f pom.xml --batch-mode --update-snapshots test
 
