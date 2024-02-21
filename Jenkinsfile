@@ -32,25 +32,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Check Docker') {
-            steps {
-                script {
-                    // Assuming Dockerfile is present in the project root
-                    dockerImage = docker.build("${DOCKER_IMAGE}", "--file Dockerfile .")
-                }
-            }
-        }
-
-        stage('Push to DockerHub') {
-            steps {
-                script {
-                    withDockerRegistry([credentialsId: "dockerhubaccount", url: ""]) {
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
     }
 
     post {
